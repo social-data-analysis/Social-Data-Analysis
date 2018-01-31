@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>D3 Page Template</title>
+		<script type="text/javascript" src="../d3.js"></script>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var dataset = [ 5, 10, 15, 20, 25 ];
+		
+			d3.select("body").selectAll("p")
+			.data(dataset)
+			.enter()
+			.append("p")
+			.text(function(d) { return d; });</script>
+			
+		<svg width="500" height="500">
+			<rect x="0" y="20" width="80" height="80" fill="purple" stroke="gray" stroke-width="2" opacity="0.8"/>
+			<rect x="20" y="15" width="80" height="80" fill="blue" stroke="gray" stroke-width="2" opacity="0.6"/>
+			<rect x="40" y="10" width="80" height="80" fill="green" stroke="gray" stroke-width="2" opacity="0.4"/>
+			<rect x="60" y="5" width="80" height="80" fill="yellow" stroke="gray" stroke-width="2" opacity="0.2"/>
+			<rect x="80" y="0" width="80" height="80" fill="red" stroke="gray" stroke-width="2" opacity="0"/>
+		</svg>
+	</body>
+</html>
