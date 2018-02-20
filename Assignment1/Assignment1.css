@@ -3,6 +3,7 @@ h1 { font-family: 'Lato', sans-serif; font-size: 54px; font-weight: 300; line-he
 h2 { font-family: 'Lato', sans-serif; font-size: 44px; font-weight: 300; line-height: 48px; margin: 0 0 48px; }
 h4 { font-family: 'Lato', sans-serif; font-size: 24px; font-weight: 300; line-height: 28px; margin: 0 0 28px; }
 p { font-family: 'Lucida Sans', Arial, sans-serif; font-size: 16px; line-height: 26px; text-indent: 30px; margin: 0; }
+li { font-family: 'Lucida Sans', Arial, sans-serif; font-size: 16px; line-height: 26px; text-indent: 30px; margin: 50px; }
 a { color: #fe921f; text-decoration: underline; }
 a:hover { color: #000000 }
 body { background-color: #fceebd; padding: 50px 50px; }
