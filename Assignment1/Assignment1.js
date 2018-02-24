@@ -80,7 +80,7 @@ function createRectangles(data) {
 		.attr("height", function(d) {
 			return h - padding - yScale(d.count);
 		})
-		.attr('fill', '#fe921f');
+		.attr('fill', '#5da7a9');
 		
 	svg.append("g")
 		.attr("class", "axisX")

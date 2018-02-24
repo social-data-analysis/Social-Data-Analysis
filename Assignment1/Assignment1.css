@@ -1,9 +1,73 @@
-.button { background: #fe921f; color: #fceebd; display: inline-block; font-family: 'Lato', sans-serif; font-size: 12px; font-weight: bold; line-height: 12px; letter-spacing: 1px; margin: 0 0 30px; padding: 10px 15px 8px; text-transform: uppercase; }
-h1 { font-family: 'Lato', sans-serif; font-size: 54px; font-weight: 300; line-height: 58px; margin: 0 0 58px; }
-h2 { font-family: 'Lato', sans-serif; font-size: 44px; font-weight: 300; line-height: 48px; margin: 0 0 48px; }
-h4 { font-family: 'Lato', sans-serif; font-size: 24px; font-weight: 300; line-height: 28px; margin: 0 0 28px; }
-p { font-family: 'Lucida Sans', Arial, sans-serif; font-size: 16px; line-height: 26px; text-indent: 30px; margin: 0; }
-li { font-family: 'Lucida Sans', Arial, sans-serif; font-size: 16px; line-height: 26px; text-indent: 30px; margin: 50px; }
-a { color: #fe921f; text-decoration: underline; }
-a:hover { color: #000000 }
-body { background-color: #fceebd; padding: 50px 50px; }
+@import url('https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700');
+
+* {
+  font-family: 'Nunito', sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+.header {
+  border-bottom: solid 1px #9a9a9a;
+  position: fixed;
+  width: 100%;
+  background: white;
+  z-index: 1;
+}
+
+.title {
+  color: #9a9a9a;
+  font-weight: 200;
+  margin-left: 160px;
+}
+
+.content {
+  margin: 0 160px;
+  position: absolute;
+  top: 14%;
+}
+
+.button {
+  background: #5da7a9;
+  border: 0;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 12px;
+  letter-spacing: 1px;
+  margin: 0 0 30px;
+  outline: none;
+  padding: 10px 15px 8px;
+  text-transform: uppercase;
+}
+
+.button:hover {
+  background: #4d888a;
+  color: white;
+}
+
+ul {
+  font-size: 17px;
+  line-height: 26px;
+}
+
+li {
+  font-weight: bold;
+}
+
+a {
+  color: #5da7a9;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #000000 
+}
+
+h2 {
+  color: #9a9a9a;
+  font-weight: 200;
+}

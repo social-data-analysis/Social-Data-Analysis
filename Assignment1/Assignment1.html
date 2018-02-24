@@ -2,41 +2,81 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Assignment1</title>
+		<title>Assignment 1</title>
 		<link rel="stylesheet" type="text/css" href="Assignment1.css">
 	</head>
 	<body>
-		<h1>02806 Social data analysis and visualization Assignment 1</h1>
+		<div class="header">
+				<h1 class="title">Assignment 1</h1>
+		</div>
+		<div class="content">
 		<h2>Part 1: DAOST Chapter 2 Questions</h2>
 			<ul>
-				  <li><b>Explain in your own words the point of the jitter plot.</b><br>
-				  The point of jitter plot is to move the data points by a small random amount from their original place. This is a good approach when a lot of data points are on top of each other, using jitter plot we can differentiate between them easier.</li>
-				  <li><b>Explain in your own words the point of figure 2-3.</b><br>
-				  This figure shows us very well why is it important to choose the anchoring point of the first bin carefully in case of histograms. More generally, we need to select properly where the edges of the bins fall on the scale.</li>
-				  <li><b>When can KDEs be misleading?</b><br>
-				  KDE can be misleading because the eye can estimate distances better than areas, that is why the observer can draw wrong conclusions from the high peaks of KDE.</li>
-				  <li><b>I've discussed some strengths of the CDF - there are also weaknesses. Janert writes "[CDFs] have less intuitive appeal than histograms of KDEs". What does he mean by that?</b><br>
-				  This means that it is harder to understand CDF and we need to think more and in a bit more abstract way when we want to perceive information from this kind of plot.</li>
-				  <li><b>What is a Quantile plot? What is it good for.</b><br>
-				  It is the same as CDF but with switched x and y axes. It is easier to draw conclusions for percentiles this way.</li>
-				  <li><b>How is a Probablity plot defined? What is it useful for? Have you ever seen one before?</b><br>
-				  Probability plots are used to compare 2 different datasets, for example to check if our given dataset can be described well by some kind of well-known distribution (like Gaussian). In reliability applications different distributions are common and probability plot is a good way to check if our data follows any of them.</li>
-				  <li><b>One of the reasons I like DAOST is that Janert is so suspicious of mean, median, and related summary statistics. Explain why one has to be careful when using those - and why visualization of the full data is always better.</b><br>
-				  We have to be careful using summary statistics because they can mislead us if they don't have a unimodal distribution. That's why visualizing the data is always a good idea, we can instantly see whether it has unimodal distribution or not from a proper plot.</li>
-				  <li><b>I love box plots. When are box plots most useful?</b><br>
-				  They are most useful when we compare several distributions to each other.</li>
-				  <li><b>The book doesn't mention violin plots. Are those better or worse than box plots? Why?</b><br>
-				  The violin plot is better because it can show more information, as it combines features of box plots and density trace.</li>
+				  <li>Explain in your own words the point of the jitter plot.</li>
+				  <p>The point of jitter plot is to move the data points by a small random amount from their original place. This is a good approach when a lot of data points are on top of each other, using jitter plot we can differentiate between them easier.</p>
+				  <li>Explain in your own words the point of figure 2-3.</li>
+				  <p>This figure shows us very well why is it important to choose the anchoring point of the first bin carefully in case of histograms. More generally, we need to select properly where the edges of the bins fall on the scale.</p>
+				  <li>When can KDEs be misleading?</li>
+				  <p>KDE can be misleading because the eye can estimate distances better than areas, that is why the observer can draw wrong conclusions from the high peaks of KDE.</p>
+				  <li>I've discussed some strengths of the CDF - there are also weaknesses. Janert writes "[CDFs] have less intuitive appeal than histograms of KDEs". What does he mean by that?</li>
+				  <p>This means that it is harder to understand CDF and we need to think more and in a bit more abstract way when we want to perceive information from this kind of plot.</p>
+				  <li>What is a Quantile plot? What is it good for.</li>
+				  <p>It is the same as CDF but with switched x and y axes. It is easier to draw conclusions for percentiles this way.</p>
+				  <li>How is a Probablity plot defined? What is it useful for? Have you ever seen one before?</li>
+				  <p>Probability plots are used to compare 2 different datasets, for example to check if our given dataset can be described well by some kind of well-known distribution (like Gaussian). In reliability applications different distributions are common and probability plot is a good way to check if our data follows any of them.</p>
+				  <li>One of the reasons I like DAOST is that Janert is so suspicious of mean, median, and related summary statistics. Explain why one has to be careful when using those - and why visualization of the full data is always better.</li>
+				  <p>We have to be careful using summary statistics because they can mislead us if they don't have a unimodal distribution. That's why visualizing the data is always a good idea, we can instantly see whether it has unimodal distribution or not from a proper plot.</p>
+				  <li>I love box plots. When are box plots most useful?</li>
+				  <p>They are most useful when we compare several distributions to each other.</p>
+				  <li>The book doesn't mention violin plots. Are those better or worse than box plots? Why?</li>
+				  <p>The violin plot is better because it can show more information, as it combines features of box plots and density trace.</p>
 			</ul>
 		<h2>Part 2: DAOST Chapter 3 Questions</h2>
+		<ul>
+			<li>Looking at Fig 3-1, Janert writes "the data itself shows clearly that the amount of random noise in the data is small". What do you think his argument is?</li>
+			<p>Random noise in the data is small because the data creates a systematic pattern. Random noise in 
+				the data also makes the pattern difficult to recognize, and in the presented chart the pattern can be clearly recognized.</p>
+			<li>Can you think of a real-world example of a multivariate relationship like the one in Fig 3-3 (lower right panel)? </li>
+			<p>We could test whether the weight of the patients at a hospital is correlated with tiredness and headache.</p>
+			<li>What are the two methods Janert mentions for smoothing noisy data? Can you think of other ones?</li>
+			<p>Weighted splines and a method known as LOESS (or LOWESS). </p>
+			<p>Other methods: 
+				<ul>
+					<li>Moving average filters - replace each data point with the average of the neighboring data points defined within the span</li>
+					<li>Savitzky-Golay Filtering - make for each point a least-square fit with a polynomial of high order over an odd-sized window centered at the point</li>
+				</ul>
+			</p>
+			<li>What is problematic about using straight lines to fit the data in Fig 3-5?</li>
+			<p>Using straight lines would not allow us to extract enough details regarding the data.</p>
+			<li>What are residuals? Why is it a good idea to plot the residuals of your fit?</li>
+			<p>As defined in the book, residuals are the remainders when you subtract the "smooth" trend from the actual data. They are useful because they detect whether the model accurately describes the data.</p>
+			<li>Explain in your own words the point of the smooth tube in figure 3-7.</li>
+			<li>What kind of relationships will a semi-log plot help you discover?</li>
+			<li>What kind of functions will loglog plots help you see?</li>
+			<li>What the h#ll is banking and what part of our visual system does it use to help us see patterns? What are potential problems with banking?</li>
+			<li>I think figure 3-14 makes an important point about linear fits that is rarely made. What is it?</li>
+			<li>I know you love Ascombe's Quartet (Figure 3-15), but have you seen this: https://www.autodeskresearch.com/publications/samestats (That page is pretty darn cool)
+			Summarize the discussion of Graphical Analysis and Presentation Graphics on pp. 68-69 in your own words.</li>
+		</ul>
 		<h2 id="part3">Part 3: Viz 1</h2>
 			<h4 id="part3title">Recreated bar chart from <a href="http://iquantny.tumblr.com/post/129373499164/this-is-quantifiably-the-best-month-to-go-to-the">http://iquantny.tumblr.com/post/129373499164/this-is-quantifiably-the-best-month-to-go-to-the</a></h4>
-				<button id="freshFruit" class="button">Click Here To See Fresh Fruit Data</button>
-				<button id="freshVegetable" class="button">Click Here To See Fresh Vegetable Data</button>
-				<button id="storageFruit" class="button">Click Here To See Storage Fruit Data</button>
-				<button id="storageVegetable" class="button">Click Here To See Storage Vegetable Data</button>
+				<button id="freshFruit" class="button">See Fresh Fruit Data</button>
+				<button id="freshVegetable" class="button">See Fresh Vegetable Data</button>
+				<button id="storageFruit" class="button">See Storage Fruit Data</button>
+				<button id="storageVegetable" class="button">See Storage Vegetable Data</button>
 		<h2 id="part4">Part 4: Viz 2</h2>
-		<script type="text/javascript" src="d3.js"></script>
-		<script type="text/javascript" src="Assignment1.js"></script>
+		<div class="chartManWoman"></div>
+    <div class="buttons">
+      <button id="allData" class="btn">All</button>
+      <button id="menData" class="btn">Men</button>
+      <button id="womenData" class="btn">Women</button>
+    </div>
+  </div>
+	</div>
 	</body>
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<script src="Assignment1.js"></script>
+	<script src="Part4.js"></script>
 </html>
+
+ 
