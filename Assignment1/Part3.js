@@ -21,7 +21,7 @@ var svg = d3.select("#part3title")
 readFromCSV("0");
 
 function readFromCSV(type) {
-	d3.csv("Assignment1_freshness.csv", function(data) {
+	d3.csv("Freshness.csv", function(data) {
 		var dataset = [];
 		data.forEach(function(element) {
 			if (element.index === type) {
@@ -131,22 +131,43 @@ function updateRectangles(data) {
 		.call(yAxis);
 }
 
+var buttons4Array = ["#freshFruit", "#freshVegetable", "#storageFruit", "#storageVegetable"];
+
+function style4Buttons(activeButton) {
+  buttons4Array.forEach(function(elem) {
+    d3.select(elem)
+    // .transition()
+    // .duration(1000)
+    .style("border", '1px solid black')
+    .style("color", "black");
+  })
+  d3.select(activeButton)
+  // .transition()
+  // .duration(1000)
+  .style("border", '1px solid #3396b7')
+  .style("color", "#3396b7");
+}
+
 d3.select("#freshFruit")
 	.on("click", function() {
+		style4Buttons("#freshFruit")
 		readFromCSV("0")
 	});
 
 d3.select("#freshVegetable")
 	.on("click", function() {
+		style4Buttons("#freshVegetable")
 		readFromCSV("1")
 	});
 	
 d3.select("#storageFruit")
 	.on("click", function() {
+		style4Buttons("#storageFruit")
 		readFromCSV("2")
 	});
 	
 d3.select("#storageVegetable")
 	.on("click", function() {
+		style4Buttons("#storageVegetable")
 		readFromCSV("3")
 	});

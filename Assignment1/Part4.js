@@ -302,35 +302,17 @@ function updateChart(whichToHide) {
 
 var buttonsArray = ["#menData", "#womenData", "#allData"];
 
-function styleButtons(activeButton) {
-  buttonsArray.forEach(function(elem) {
-    d3.select(elem)
-    // .transition()
-    // .duration(1000)
-    .style("border", '1px solid black')
-    .style("color", "black");
-  })
-  d3.select(activeButton)
-  // .transition()
-  // .duration(1000)
-  .style("border", '1px solid #3396b7')
-  .style("color", "#3396b7");
-}
-
 d3.select("#allData")
 	.on("click", function() {
-    styleButtons("#allData")
 		createGraphAll()
 	});
 
 d3.select("#menData")
 	.on("click", function() {
-    styleButtons("#menData")
 		updateChart(".women")
 	});
 
 d3.select("#womenData")
 	.on("click", function() {
-    styleButtons("#womenData")
 		updateChart(".men")
 	});

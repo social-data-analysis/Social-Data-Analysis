@@ -8,9 +8,20 @@
 	<body>
 		<div class="header">
 				<h1 class="title">Assignment 1</h1>
+				<div class="navbar">
+				<div class="navbar-menu" id="toggle-button"></div>
+				<ul class="navbar-buttons">
+					<li onClick="document.getElementById('space1').scrollIntoView();">Part 1</li>
+					<li onClick="document.getElementById('space2').scrollIntoView();">Part 2</li>
+					<li onClick="document.getElementById('space3').scrollIntoView();">Part 3</li>
+					<li onClick="document.getElementById('space4').scrollIntoView();">Part 4</li>
+				</ul>
+				</div>
 		</div>
+		<div class="wrapper">
 		<div class="content">
-		<h2>Part 1: DAOST Chapter 2 Questions</h2>
+		<div id="space1"></div>
+		<h2 id="part1">Part 1: DAOST Chapter 2 Questions</h2>
 			<ul>
 				  <li>Explain in your own words the point of the jitter plot.</li>
 				  <p>The point of jitter plot is to move the data points by a small random amount from their original place. This is a good approach when a lot of data points are on top of each other, using jitter plot we can differentiate between them easier.</p>
@@ -31,7 +42,8 @@
 				  <li>The book doesn't mention violin plots. Are those better or worse than box plots? Why?</li>
 				  <p>The violin plot is better because it can show more information, as it combines features of box plots and density trace.</p>
 			</ul>
-		<h2>Part 2: DAOST Chapter 3 Questions</h2>
+		<div id="space2"></div>
+		<h2 id="part2">Part 2: DAOST Chapter 3 Questions</h2>
 		<ul>
 			<li>Looking at Fig 3-1, Janert writes "the data itself shows clearly that the amount of random noise in the data is small". What do you think his argument is?</li>
 			<p>Random noise in the data is small because the data creates a systematic pattern. Random noise in 
@@ -41,7 +53,7 @@
 			<li>What are the two methods Janert mentions for smoothing noisy data? Can you think of other ones?</li>
 			<p>Weighted splines and a method known as LOESS (or LOWESS). </p>
 			<p>Other methods: 
-				<ul>
+				<ul class="nested-list">
 					<li>Moving average filters - replace each data point with the average of the neighboring data points defined within the span</li>
 					<li>Savitzky-Golay Filtering - make for each point a least-square fit with a polynomial of high order over an odd-sized window centered at the point</li>
 				</ul>
@@ -49,33 +61,57 @@
 			<li>What is problematic about using straight lines to fit the data in Fig 3-5?</li>
 			<p>Using straight lines would not allow us to extract enough details regarding the data.</p>
 			<li>What are residuals? Why is it a good idea to plot the residuals of your fit?</li>
-			<p>As defined in the book, residuals are the remainders when you subtract the "smooth" trend from the actual data. They are useful because they detect whether the model accurately describes the data.</p>
+			<p>As defined in the book, residuals are the remainders when you subtract the "smooth" trend from the actual data. They are useful because they detect whether the model accurately describes the data or not.</p>
 			<li>Explain in your own words the point of the smooth tube in figure 3-7.</li>
+			<p>The smooth tube is used to explore the structure of a dataset.</p>
 			<li>What kind of relationships will a semi-log plot help you discover?</li>
-			<li>What kind of functions will loglog plots help you see?</li>
+			<p>Semi-log plots have one linear axis and one logarithmic axis and would help us discover relationships on a higher scale. They are used when the data range on one axis is extremely large and does not follow a linear progression, allowing us to extrapolate data much easier because the range is much more spread out.</p>
+			<li>What kind of functions will log-log plots help you see?</li>
+			<p>Log-log plots have two logarithmic axes and allow us to track power law relationships.</p>
 			<li>What the h#ll is banking and what part of our visual system does it use to help us see patterns? What are potential problems with banking?</li>
+			<p>Banking is a method by which we can visualize more clearly the trends found within a plot. It works by adjusting the aspect ratio of the whole plot so that most slopes are at approximately 45 degrees. 
+				The biggest issue might be that we can lose a great deal of detail and the changes might appear too extreme (by picking an aspect ratio that is too small) or too flat (by picking an aspect ratio that is too high).</p>
 			<li>I think figure 3-14 makes an important point about linear fits that is rarely made. What is it?</li>
-			<li>I know you love Ascombe's Quartet (Figure 3-15), but have you seen this: https://www.autodeskresearch.com/publications/samestats (That page is pretty darn cool)
-			Summarize the discussion of Graphical Analysis and Presentation Graphics on pp. 68-69 in your own words.</li>
+			<p>The main purpose of linear fits is not to summarize the data, but to predict the value of response variables.</p>
+			<li>Summarize the discussion of Graphical Analysis and Presentation Graphics on pp. 68-69 in your own words.</li>
+			<p>Graphical analysis is performed in order to extract new information from a dataset, whereas presentation graphics 
+			is concerned with communicating the discovered results to the reader. Graphical analysis should focus only on finding 
+			patterns in the data and visualizing them. Additional details such as labels, arrows, graph legends etc. should be left for
+		 presentation graphics, whose main purpose is to present the newly discovered information in a self-explanatory way 
+		 that anyone can understand. Summarizing the tips that are given, each plot needs to have:
+		 <ul class="nested-list">
+			 <li>Captions</li>
+			 <li>Explicit labels with measurement units</li>
+			 <li>Well-known abbreviations that anyone could figure out</li>
+			 <li>Suitable fonts</li>
+			 <li>No typos</li>
+			 <li>Scalable formats</li>
+		 </ul>
+		</p>
 		</ul>
+		<div id="space3"></div>
 		<h2 id="part3">Part 3: Viz 1</h2>
 			<h4 id="part3title">Recreated bar chart from <a href="http://iquantny.tumblr.com/post/129373499164/this-is-quantifiably-the-best-month-to-go-to-the">http://iquantny.tumblr.com/post/129373499164/this-is-quantifiably-the-best-month-to-go-to-the</a></h4>
+			<div class="button-container">
 				<button id="freshFruit" class="button">See Fresh Fruit Data</button>
 				<button id="freshVegetable" class="button">See Fresh Vegetable Data</button>
 				<button id="storageFruit" class="button">See Storage Fruit Data</button>
 				<button id="storageVegetable" class="button">See Storage Vegetable Data</button>
+			</div>
+		<div id="space4"></div>
 		<h2 id="part4">Part 4: Viz 2</h2>
 		<div class="chartManWoman"></div>
-    <div class="buttons">
-      <button id="allData" class="btn">All</button>
-      <button id="menData" class="btn">Men</button>
-      <button id="womenData" class="btn">Women</button>
+		<div class="buttons">
+			<button id="allData" class="button">All</button>
+      <button id="menData" class="button">Men</button>
+      <button id="womenData" class="button">Women</button>
     </div>
-  </div>
+	</div>
+	</div>
 	</div>
 	</body>
 	<script src="https://d3js.org/d3.v4.min.js"></script>
-	<script src="Assignment1.js"></script>
+	<script src="Part3.js"></script>
 	<script src="Part4.js"></script>
 </html>
 
