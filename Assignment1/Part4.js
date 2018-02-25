@@ -42,7 +42,7 @@ function calculateMenEdges(data) {
   maxMenTime = d3.max(data, function(d) {return d.Time;});
 }
 
-var tooltip = d3.select("body").select("#content4").select(".chartManWoman").append("div")
+var tooltip = d3.select("body").select(".chartManWoman").append("div")
   .attr("class", "tooltip")
   .style("opacity", 0);
 
