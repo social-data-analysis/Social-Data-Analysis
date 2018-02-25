@@ -16,8 +16,6 @@ var svgChart = d3.select("body").select(".chartManWoman").append("svg")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-console.log(convertToMinutes("2:55:10"))
-
 //Square symbol to show men
 var symbol = d3.symbol()
   .type(d3.symbolSquare)
@@ -48,7 +46,7 @@ var tooltip = d3.select("body").select(".chartManWoman").append("div")
 
 // tooltip mouseover event handler
 var tipMouseover = function(d) {
-  var html  = "Year: " + d.Year + "<br />" + "Time: " + d.Time;
+  var html  = "Year: " + d.Year + "<br />" + "Time: " + Number(d.Time).toFixed(2);
   tooltip.html(html)
     .style("left", (d3.event.pageX - 80) + "px")
     .style("top", (d3.event.pageY - 60) + "px")
@@ -63,8 +61,9 @@ var tipMouseout = function(d) {
     .style("opacity", 0);
 };
 
-//This function is called as default (at the beginning) and than on click on button
-//"All"
+var format2d = d3.format("0.1f");
+
+//This function is called as default (at the beginning) and then when clicking on button "All"
 function createGraphAll() {
   d3.csv("MenOpen.csv", function(error1, menOpenData) {
     d3.csv("WomenOpen.csv", function(error2, womenOpenData) {
@@ -90,7 +89,16 @@ function createGraphAll() {
         .domain([minMenTime, maxWomenTime])
         .range([height, 0])
 
-      var xAxis = d3.axisBottom(xScale).ticks(6),
+        var xScaleWomen = d3.scaleLinear()
+        .domain([minMenYear, maxWomenYear])
+        .range([0, width])
+
+      var yScaleWomen = d3.scaleLinear()
+        .domain([minMenTime, maxWomenTime])
+        .range([height, 0])
+
+        
+        var xAxis = d3.axisBottom(xScale).ticks(6),
           yAxis = d3.axisLeft(yScale);
 
       //Remove axis to assign new axis when press on button "All"
@@ -106,6 +114,12 @@ function createGraphAll() {
 
       svgChart.selectAll(".men")
         .remove()
+
+      svgChart.selectAll(".trendline")
+      .remove()
+
+    svgChart.selectAll(".path")
+      .remove()
 
       //Transition should work as update but it'd not working :(
       var xAxisSvg = svgChart.append("g")
@@ -182,29 +196,92 @@ function createGraphAll() {
       dotsWomen.on("mouseover", tipMouseover)
       .on("mouseout", tipMouseout);
 
+      // Connect the dots with line
+      connectDots(menOpenData, svgChart, "#22c3d8", xScale, yScale);
+      connectDots(womenOpenData, svgChart, "#b588d2", xScale, yScale);
 
-      //Connect the dots with line
-      var valueline = d3.line()
-        .x(function(d) { return xScale(d.Year); })
-        .y(function(d) { return yScale(d.Time); });
+      var numSteps = 1990; // consider only years before 1990
 
-      // svgChart.append("path")
-      //   .datum(womenOpenData)
-      //   .attr("class", "line")
-      //   .attr("d", valueline);
-
-
-      console.log(menOpenData[0])
-
+      drawStraightLine(menOpenData, numSteps, svgChart, xScale, yScale); // straight line for men
+      drawStraightLine(womenOpenData, numSteps, svgChart, xScaleWomen, yScaleWomen, true); // straight line for women
     });
   });
+}
+
+function connectDots(dataset, svgChart, color, xScale, yScale) {
+
+  var lineFunction = d3.line()
+    .x(function(d) { return xScale(d.Year); })
+    .y(function(d) { return yScale(d.Time); });
+
+  svgChart.append("path")
+  .attr("d", lineFunction(dataset))
+  .attr("class", "path")
+  .attr("stroke", color)
+  .attr("stroke-width", 2)
+  .attr("fill", "none");
+}
+
+function drawStraightLine(dataset, numSteps, svgChart, xScale, yScale, isWomenDataset, filterPoints) {
+
+   // draw the straight line only based on data points prior to 1990 (as in the book)
+   if (!filterPoints)
+    dataset = dataset.filter(function(item) { return item.Year <= 1990; }) 
+
+   // get the x and y values for least squares
+  var xSeries = dataset.map(function(d) { return parseFloat(d.Year); });
+  var ySeries = dataset.map(function(d) { return parseFloat(d.Time); });
+
+  var leastSquaresCoeff = leastSquares(xSeries, ySeries);
+
+  var slope = leastSquaresCoeff[0];
+  var intercept = leastSquaresCoeff[1];
+  var rSquare = leastSquaresCoeff[2];
+
+  console.log(leastSquaresCoeff);
+  
+  var trendline = svgChart.append("line")
+    .attr("x1", function(d) {
+      if (isWomenDataset) return xScale(0);
+      else return xScale(minMenYear);
+    })
+    .attr("y1", function(d) {
+      if (isWomenDataset) return yScale(intercept);
+      else if (!isWomenDataset && filterPoints) return yScale(intercept) / numSteps * slope * 200;
+      else return  -yScale(intercept) / 11.2;
+    })
+    .attr("x2", xScale(numSteps))
+    .attr("y2", yScale(numSteps * slope + intercept))
+    .classed("trendline", true);
+}
+
+function leastSquares(xSeries, ySeries) {
+
+  var reduceSumFunc = function(prev, cur) { return prev + cur; };
+  
+  var xBar = xSeries.reduce(reduceSumFunc) * 1.0 / xSeries.length;
+  var yBar = ySeries.reduce(reduceSumFunc) * 1.0 / ySeries.length;
+
+  var ssXX = xSeries.map(function(d) { return Math.pow(d - xBar, 2); })
+    .reduce(reduceSumFunc);
+  
+  var ssYY = ySeries.map(function(d) { return Math.pow(d - yBar, 2); })
+    .reduce(reduceSumFunc);
+    
+  var ssXY = xSeries.map(function(d, i) { return (d - xBar) * (ySeries[i] - yBar); })
+    .reduce(reduceSumFunc);
+    
+  var slope = ssXY / ssXX;
+  var intercept = yBar - (xBar * slope);
+  var rSquare = Math.pow(ssXY, 2) / (ssXX * ssYY);
+  return [slope, intercept, rSquare];
 }
 
 //on enter create default graph for both datasets
 createGraphAll()
 
-
 function createPlot(whichAxisX, whichAxisY, whichScaleX, whichScaleY, whichData, whichToHide) {
+
   svgChart.select(".x.axis")
     .transition()
     .duration(1000)
@@ -222,6 +299,11 @@ function createPlot(whichAxisX, whichAxisY, whichScaleX, whichScaleY, whichData,
     svgChart.selectAll(whichToHide)
       .remove()
 
+    svgChart.selectAll(".trendline")
+      .remove()
+
+    svgChart.selectAll(".path")
+      .remove()
 
     var womenDots = svgChart.selectAll("circle")
       .data(whichData)
@@ -229,6 +311,8 @@ function createPlot(whichAxisX, whichAxisY, whichScaleX, whichScaleY, whichData,
       .attr("class", "dot women")
       .style("stroke", "#515151")
       .style("fill", "white");
+
+    connectDots(whichData, svgChart, "#b588d2", whichScaleX, whichScaleY);
 
     womenDots.transition()
     .duration(1000)
@@ -248,6 +332,12 @@ function createPlot(whichAxisX, whichAxisY, whichScaleX, whichScaleY, whichData,
     svgChart.selectAll(".men")
       .remove()
 
+    svgChart.selectAll(".trendline")
+      .remove()
+
+    svgChart.selectAll(".path")
+      .remove()
+
     svgChart.selectAll(whichToHide)
       .remove()
 
@@ -257,6 +347,9 @@ function createPlot(whichAxisX, whichAxisY, whichScaleX, whichScaleY, whichData,
       .attr("class", "dot men")
       .style("stroke", "#515151")
       .style("fill", "white");
+
+    connectDots(whichData, svgChart, "#22c3d8", whichScaleX, whichScaleY);
+    drawStraightLine(whichData, 2017, svgChart, whichScaleX, whichScaleY, false, true);
 
     menDots.transition()
       .duration(1000)
