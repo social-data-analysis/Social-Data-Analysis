@@ -7,7 +7,7 @@ function convertToMinutes(strTime) {
 }
 
 var margin = {top: 20, right: 20, bottom: 50, left: 70},
-    width = 700 - margin.left - margin.right,
+    width = 1000 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
 var svgChart = d3.select("body").select(".chartManWoman").append("svg")
@@ -123,13 +123,30 @@ function createGraphAll() {
         .style("text-anchor", "end") // right-justify text
         .text("Year");
 
+      svgChart.append("text")             
+        .attr("transform", "translate(450, 480)")
+        .style("text-anchor", "middle")
+        .style("font-weight", "bold")
+        .style("font-size", "15px")
+        .text("Year");
+        
+      svgChart.append("text")
+        .attr("transform", "rotate(-90), translate(30, -60)")
+        .attr("y", 0)
+        .attr("x" ,0 - (h / 2))
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .style("font-weight", "bold")
+        .style("font-size", "15px")
+        .text("Minutes"); 
+
       svgChart.append("g")
         .attr("class", "y axis")
         .transition()
         .duration(1000)
         .call(yAxis);
 
-      //Path is requored to use symbols
+      //Path is required to use symbols
       var dotsMen = svgChart.selectAll(".men.dot")
         .data(menOpenData)
         .enter().append("path")
@@ -315,4 +332,56 @@ d3.select("#menData")
 d3.select("#womenData")
 	.on("click", function() {
 		updateChart(".men")
-	});
+  });
+  
+// Add legend
+var legendRectSize = 8;
+var legendSpacing = 2;
+var color = d3.scaleOrdinal(d3.schemeCategory20b);
+var legendLabels = [
+  {label: 'Men', shape: 'square'},
+  {label: 'Women', shape: 'dot'}
+]
+
+var labels = ['Men', 'Women']
+var vert = 0;
+
+var legend = svgChart.selectAll('.legend')
+  .data(labels)
+  .enter()
+  .append('g')
+  .attr('class', 'legend')
+  .attr('transform', function(d, i) {
+    vert += 20;
+    return 'translate(' + 850 + ',' + vert + ')';
+  });
+
+  legend.append(function(d) {
+    // Ugly but it's working 
+    if(d === "Men"){ 
+        return document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    } else { 
+        return document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    }})
+    .attr('width', legendRectSize)
+    .attr('height', legendRectSize)
+    .style("stroke", "#515151")
+    .style("fill", "white")
+    .attr('cx', '10')
+    .attr('cy', '10')
+    .attr('r', '5')
+    .attr('transform', function(d) {
+      if (d === "Women") {
+        return "translate(-6,-6)"
+      }})
+      .style("stroke-width", function(d) {
+        if (d === "Women") {
+          return "2px"
+        }});
+
+legend.append('text')
+    .attr('x', 14)
+    .attr('y', 9)
+    .text(function(d) { return d; })
+    .style("font-size", "13px")
+    .style("font-weight', 'bold")
