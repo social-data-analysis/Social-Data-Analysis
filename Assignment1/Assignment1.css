@@ -181,3 +181,14 @@ rect {
   stroke-width: 1px;
   stroke-opacity: 0.75;
 }
+
+.chartTitle {
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.barChartTitle {
+  margin-bottom: 10px;
+  text-align: center;
+}
