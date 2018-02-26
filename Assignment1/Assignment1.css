@@ -47,7 +47,7 @@ body {
 
 .navbar-buttons li:hover {
   cursor: pointer;
-  color:#5da7a9;
+  color: #5da7a9;
 }
 
 .navbar-buttons li a {
@@ -63,9 +63,9 @@ body {
   margin-left: 14%;
 }
 
-@media only screen and (max-width: 400px)  {
-.content {
-  margin: 0 60px;
+@media only screen and (max-width: 400px) {
+  .content {
+    margin: 0 60px;
   }
 }
 
@@ -105,7 +105,7 @@ a {
 }
 
 a:hover {
-  color: #000000 
+  color: #000000;
 }
 
 h2 {
@@ -131,6 +131,7 @@ h2 {
   .navbar-menu {
     display: block;
   }
+
   .navbar-buttons {
     display: none;
   }
@@ -178,7 +179,7 @@ rect {
 
 .trendline {
   stroke: #9a9a9a;
-  stroke-width: 1px;
+  stroke-width: 2px;
   stroke-opacity: 0.75;
 }
 
