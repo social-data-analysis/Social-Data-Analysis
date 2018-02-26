@@ -46,7 +46,7 @@ var tooltip = d3.select("body").select(".chartManWoman").append("div")
 
 // tooltip mouseover event handler
 var tipMouseover = function(d) {
-  var html  = "Year: " + d.Year + "<br />" + "Time: " + Number(d.Time).toFixed(2);
+  var html  = "Year: " + d.Year + "<br />" + "Time: " + Number(d.Time).toFixed(2) + "<br />" + "Name: " + d.Athlete;
   tooltip.html(html)
     .style("left", (d3.event.pageX - 80) + "px")
     .style("top", (d3.event.pageY - 60) + "px")
@@ -237,8 +237,6 @@ function drawStraightLine(dataset, numSteps, svgChart, xScale, yScale, isWomenDa
   var slope = leastSquaresCoeff[0];
   var intercept = leastSquaresCoeff[1];
   var rSquare = leastSquaresCoeff[2];
-
-  console.log(leastSquaresCoeff);
   
   var trendline = svgChart.append("line")
     .attr("x1", function(d) {
