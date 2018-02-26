@@ -73,7 +73,7 @@ var tipMouseover = function(d) {
     .style("top", (d3.event.pageY - 60) + "px")
     .transition()
     .duration(1)
-    .style("opacity", .9)
+    .style("opacity", 0.9)
 };
 // tooltip mouseout event handler
 var tipMouseout = function(d) {
